@@ -16,6 +16,9 @@
 
 package org.springframework.context.annotation.spr16756;
 
+import com.oracle.javafx.jmx.json.JSONFactory;
+import jdk.nashorn.internal.objects.NativeJSON;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,13 +28,22 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class Spr16756Tests {
 
+	//todo
 	@Test
 	public void shouldNotFailOnNestedScopedComponent() {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+		//最终调用 DefaultListableBeanFactory 中 父类的SimpleAliasRegistry 的registerAlias方法
 		context.register(ScanningConfiguration.class);
+
+		//刷新上下文环境
 		context.refresh();
-		context.getBean(ScannedComponent.class);
-		context.getBean(ScannedComponent.State.class);
+
+		//获取bean
+		ScannedComponent bean = context.getBean(ScannedComponent.class);
+		ScannedComponent.State bean1 = context.getBean(ScannedComponent.State.class);
+		System.out.println("1111111:" + bean.iDoAnything());
+		System.out.println("2222222:" + bean1.toString());
 	}
 
 }

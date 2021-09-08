@@ -104,6 +104,12 @@ import org.springframework.util.StringUtils;
  * have a look at {@link StaticListableBeanFactory}, which manages existing
  * bean instances rather than creating new ones based on bean definitions.
  *
+ * 实现	ConfigurableListableBeanFactory 和 BeanDefinitionRegistry接口
+ * 一个成熟的工厂，基于bean定义元数据，可通过后处理器扩展。
+ * 典型用法：首先注册所有bean定义，访问并按照名字查找bean.
+ *	特定bean定义格式的读取器通常是单独实现而不是作为bean工厂的子类。
+ *	它管理现有的bean实例，而不是基于bean定义创建新的实例。
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Sam Brannen
@@ -122,6 +128,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
 
 	@Nullable
+	//java 注入提供者 类
 	private static Class<?> javaxInjectProviderClass;
 
 	static {
@@ -137,58 +144,75 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 
 	/** Map from serialized id to factory instance. */
+	//从序列化id映射到工厂实例，DefaultListableBeanFactory put(id, this)
 	private static final Map<String, Reference<DefaultListableBeanFactory>> serializableFactories =
 			new ConcurrentHashMap<>(8);
 
 	/** Optional id for this factory, for serialization purposes. */
+	//可选序列化id
 	@Nullable
 	private String serializationId;
 
 	/** Whether to allow re-registration of a different definition with the same name. */
+	// 是否允许重新注册具有相同名称的不同定义
+	//是否允许BeanDefinition重写
 	private boolean allowBeanDefinitionOverriding = true;
 
 	/** Whether to allow eager class loading even for lazy-init beans. */
+	//允许紧急类加载
 	private boolean allowEagerClassLoading = true;
 
 	/** Optional OrderComparator for dependency Lists and arrays. */
+	//可选 顺序比较 对于依赖的列表和数组
 	@Nullable
 	private Comparator<Object> dependencyComparator;
 
 	/** Resolver to use for checking if a bean definition is an autowire candidate. */
+	//用于检查bean定义是否为自动装配候选项的解析器
 	private AutowireCandidateResolver autowireCandidateResolver = SimpleAutowireCandidateResolver.INSTANCE;
 
 	/** Map from dependency type to corresponding autowired value. */
+	// 依赖类型和对应的装配值map
 	private final Map<Class<?>, Object> resolvableDependencies = new ConcurrentHashMap<>(16);
 
 	/** Map of bean definition objects, keyed by bean name. */
+	//bean名和 beanDefinition Map
 	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 
 	/** Map from bean name to merged BeanDefinitionHolder. */
+	//BeanDefinition持有 和 bean名 map
 	private final Map<String, BeanDefinitionHolder> mergedBeanDefinitionHolders = new ConcurrentHashMap<>(256);
 
 	/** Map of singleton and non-singleton bean names, keyed by dependency type. */
+	//依赖类型为key 单例和非单例 bean名 map
 	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<>(64);
 
 	/** Map of singleton-only bean names, keyed by dependency type. */
+	//依赖类型为key 单例 bean名 map
 	private final Map<Class<?>, String[]> singletonBeanNamesByType = new ConcurrentHashMap<>(64);
 
 	/** List of bean definition names, in registration order. */
+	//根据注册顺序 beanDefinition 名 列表
 	private volatile List<String> beanDefinitionNames = new ArrayList<>(256);
 
 	/** List of names of manually registered singletons, in registration order. */
+	//根据注册顺序 手动注册的单例bean名
 	private volatile Set<String> manualSingletonNames = new LinkedHashSet<>(16);
 
 	/** Cached array of bean definition names in case of frozen configuration. */
+	//在冻结配置时缓存的bean定义名称数组
 	@Nullable
 	private volatile String[] frozenBeanDefinitionNames;
 
 	/** Whether bean definition metadata may be cached for all beans. */
+	//是否可以为所有bean缓存bean定义元数据
 	private volatile boolean configurationFrozen;
 
 
 	/**
 	 * Create a new DefaultListableBeanFactory.
 	 */
+	//创建一个DefaultListableBeanFactory
 	public DefaultListableBeanFactory() {
 		super();
 	}
@@ -206,6 +230,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * Specify an id for serialization purposes, allowing this BeanFactory to be
 	 * deserialized from this id back into the BeanFactory object, if needed.
 	 */
+	//为序列化目标指定一个id，需要的话，允许此BeanFactory从这个id反序列化回BeanFactory对象。
+	//序列化，id不为空放入 工厂map
+	//serializableFactories.put(serializationId, new WeakReference<>(this));
+	//如果id为空，且defaultListableBaenaFactort本类id不为空，移除map中这个。最后赋值id。
 	public void setSerializationId(@Nullable String serializationId) {
 		if (serializationId != null) {
 			serializableFactories.put(serializationId, new WeakReference<>(this));
@@ -1104,6 +1132,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * @param condition a precondition for the modification action
 	 * (if this condition does not apply, the action can be skipped)
 	 */
+	//更新工厂内部的手动单例名称集。
 	private void updateManualSingletonNames(Consumer<Set<String>> action, Predicate<Set<String>> condition) {
 		if (hasBeanCreationStarted()) {
 			// Cannot modify startup-time collection elements anymore (for stable iteration)

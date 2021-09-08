@@ -53,6 +53,14 @@ import org.springframework.lang.Nullable;
  * ApplicationContext, to get access to an AutowireCapableBeanFactory:
  * simply cast the passed-in BeanFactory to AutowireCapableBeanFactory.
  *
+ *  工厂继承，其存在的实例bean提供自动装配的功能。
+ *	主要是为BeanFactory和ListableBeanFactory提供特殊需要，其工厂子类不用于一般的应用代码。
+ *	其他框架的继承接口利用这个接口链接和填充Spring不控制的现有bean实例生命周期。
+ *	不是ApplicationContext实现的门面，就算被应用代码使用也是通过 ApplicationContext#getAutowireCapableBeanFactory()。
+ *	可以实现BeanFactoryAware，它会公开内部的beanFactory，可以获得对AutowireCapableBeanFactory 的访问。
+ *	可以将BeanFactory转换为AutowireCapableBeanFactory
+ *
+ *
  * @author Juergen Hoeller
  * @since 04.12.2003
  * @see org.springframework.beans.factory.BeanFactoryAware

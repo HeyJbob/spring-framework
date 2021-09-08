@@ -40,6 +40,14 @@ package org.springframework.context;
  * {@link SmartLifecycle} interface provides sophisticated integration with the
  * application context's startup and shutdown phases.
  *
+ * 	定义启动/停止生命周期控制方法的公共接口。这方面的典型用例是控制异步处理。
+ * 注意:这个接口并不意味着特定的自动启动语义。
+ *	可以由两个组件实现(通常是在Spring上下文)和容器(通常是一个Spring {@link ApplicationContext}
+ * 本身)。容器将向所有组件传播启动/停止信号，适用于每个容器，例如运行时的停止/重启场景。
+ *
+ * 	可以用于直接调用或通过JMX进行管理操作。在后一种情况下，限制活动控制组件在生命周期中的可见性接口。
+ *
+ *
  * @author Juergen Hoeller
  * @since 2.0
  * @see SmartLifecycle

@@ -33,6 +33,8 @@ import org.springframework.util.StringValueResolver;
 /**
  * Simple implementation of the {@link AliasRegistry} interface.
  * <p>Serves as base class for
+ *
+ * 简单实现别名接口，作为服务的基类
  * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}
  * implementations.
  *
@@ -47,7 +49,6 @@ public class SimpleAliasRegistry implements AliasRegistry {
 
 	/** Map from alias to canonical name. */
 	private final Map<String, String> aliasMap = new ConcurrentHashMap<>(16);
-
 
 	@Override
 	public void registerAlias(String name, String alias) {
@@ -134,6 +135,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * @param name the target name to find aliases for
 	 * @param result the resulting aliases list
 	 */
+	//根据name检索所有的别名
 	private void retrieveAliases(String name, List<String> result) {
 		this.aliasMap.forEach((alias, registeredName) -> {
 			if (registeredName.equals(name)) {
@@ -150,6 +152,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * in target bean names and even in alias names.
 	 * @param valueResolver the StringValueResolver to apply
 	 */
+	//
 	public void resolveAliases(StringValueResolver valueResolver) {
 		Assert.notNull(valueResolver, "StringValueResolver must not be null");
 		synchronized (this.aliasMap) {
@@ -192,6 +195,13 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * @param alias the candidate alias
 	 * @see #registerAlias
 	 * @see #hasAlias
+	 */
+	/**
+	 * 检查给定的名称是否指向作为别名的给定别名
+	 * 在另一个方向，提前捕捉循环引用
+	 * 并抛出相应的IllegalStateException。
+	 * @param name
+	 * @param alias
 	 */
 	protected void checkForAliasCircle(String name, String alias) {
 		if (hasAlias(alias, name)) {

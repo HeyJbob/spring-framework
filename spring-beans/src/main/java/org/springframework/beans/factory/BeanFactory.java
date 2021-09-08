@@ -38,6 +38,7 @@ import org.springframework.lang.Nullable;
  * 2.0, further scopes are available depending on the concrete application
  * context (e.g. "request" and "session" scopes in a web environment).
  *
+ *
  * <p>The point of this approach is that the BeanFactory is a central registry
  * of application components, and centralizes configuration of application
  * components (no more do individual objects need to read properties files,
@@ -94,6 +95,41 @@ import org.springframework.lang.Nullable;
  * <li>DisposableBean's {@code destroy}
  * <li>a custom destroy-method definition
  * </ol>
+ *
+ * 	用于访问bean容器的根接口,这是bean容器的基本客户端视图;ListableBeanFactory和ConfigurableBeanFactory
+ * 可以用于特定用途。
+ *	该接口由持有大量bean定义的对象（Map）实现，每个都由一个字符串名称唯一标识。根据bean的定义，工厂将返回一个
+ * 容器对象的独立实例(原型设计模式)，或单个共享实例(优于Singleton设计模式的另一种选择，在这种模式中实例是
+ * 工厂范围内的单例)。返回哪种类型的实例依赖于bean工厂配置。取决于具体的上下文。
+ *
+ *	这种方法的要点是BeanFactory是一个中央注册中心的应用程序组件，并集中配置应用程序组件(不再需要单独的对象读取属性文件）
+ *	Spring的依赖注入功能是使用这个BeanFactory接口及其子接口实现。
+ *
+ * Bean工厂实现应该支持标准的Bean生命周期接口
+ *
+ * 尽可能地。完整的初始化方法集及其标准顺序为:
+ *
+ * BeanNameAware的{@code setBeanName}     1.
+ * BeanClassLoaderAware的{@code setBeanClassLoader}
+ * BeanFactoryAware的{@code setBeanFactory}		2.
+ * EnvironmentAware的 {@code setenenvironment}
+ *
+ * EmbeddedValueResolverAware的{@code setEmbeddedValueResolver}
+ * ResourceLoaderAware的{@code setResourceLoader}(仅在应用程序上下文中运行时适用)
+ * ApplicationEventPublisherAware的{@code setApplicationEventPublisher}(仅在应用程序上下文中运行时适用)
+ * MessageSourceAware的{@code setMessageSource}(仅在应用程序上下文中运行时适用)
+ *
+ * ApplicationContextAware的{@code setApplicationContext}(仅在应用程序上下文中运行时适用)	3.
+ * ServletContextAware的{@code setServletContext}(仅适用于运行在web应用程序上下文中)
+ * {@code postProcessBeforeInitialization}方法的BeanPostProcessors。InitializingBean 的{@code afterPropertiesSet}
+ *
+ * 自定义初始化方法定义 {@code postProcessAfterInitialization}方法的BeanPostProcessors。	4.
+ *
+ * 在关闭bean工厂时，应用以下生命周期方法:
+ * {@code postprocessbeforedestroy}方法的DestructionAwareBeanPostProcessors。
+ * {@code postprocessbeforedestroy
+ * disablebean的{@code销毁}
+ * 自定义销毁方法定义
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

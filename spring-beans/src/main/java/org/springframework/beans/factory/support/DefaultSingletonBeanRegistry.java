@@ -61,6 +61,10 @@ import org.springframework.util.StringUtils;
  * (which inherit from it). Can alternatively also be used as a nested
  * helper to delegate to.
  *
+ * 用于共享Bean实例的通用注册中心，实现 SingletonBeanRegistry，允许注册应该共享的单例实例。
+ * 用户注册表的所有调用者，通过bean名获取。
+ *
+ *
  * @author Juergen Hoeller
  * @since 2.0
  * @see #registerSingleton

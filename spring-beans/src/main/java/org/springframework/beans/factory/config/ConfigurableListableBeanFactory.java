@@ -35,6 +35,11 @@ import org.springframework.lang.Nullable;
  * use cases. This interface is just meant to allow for framework-internal
  * plug'n'play even when needing access to bean factory configuration methods.
  *
+ *	大多数可列出的工厂实现的配置接口
+ *	除了ConfigurableBeanFactory 还提供用于分析和修改bean定义，并预实例化单例。
+ *	一般不用于应用代码，为BeanFactory或ListableBeanFactory提供特殊使用。这个接口只是为了允许框架内部
+ * 即插即用，即使需要访问bean工厂配置方法。
+ *
  * @author Juergen Hoeller
  * @since 03.11.2003
  * @see org.springframework.context.support.AbstractApplicationContext#getBeanFactory()
@@ -60,6 +65,12 @@ public interface ConfigurableListableBeanFactory
 	 * @see org.springframework.beans.factory.BeanFactoryAware
 	 * @see org.springframework.context.ApplicationContextAware
 	 */
+	//对于自动装配，忽略给定的依赖接口。这通常会被应用程序上下文用来注册
+	//以其他方式解析的依赖项，如BeanFactory through
+	//BeanFactoryAware或ApplicationContext通过ApplicationContextAware。
+	//默认情况下，只有BeanFactoryAware接口被忽略。
+	//对于要忽略的其他类型，请为每个类型调用此方法。
+	//默认情况下，只有BeanFactoryAware接口被忽略。 要忽略给定的依赖接口，调用该方法。
 	void ignoreDependencyInterface(Class<?> ifc);
 
 	/**
@@ -78,6 +89,15 @@ public interface ConfigurableListableBeanFactory
 	 * implementation of the {@link org.springframework.beans.factory.ObjectFactory}
 	 * interface, which allows for lazy resolution of the actual target value.
 	 */
+	//*注册一个特殊的依赖类型与相应的自动连接值。
+	//用于假定的工厂/上下文引用
+	//为自动可选，但不定义为工厂中的bean:
+	//例如，类型为ApplicationContext的依赖项解析为
+	//bean所在的ApplicationContext实例。
+	//注意:在普通的BeanFactory中没有这样的默认类型注册，
+	//甚至对于BeanFactory接口本身也没有。
+
+	//注册一个特殊类型 和对应的自动注入值，用于特殊的上下文引用。
 	void registerResolvableDependency(Class<?> dependencyType, @Nullable Object autowiredValue);
 
 	/**
@@ -157,6 +177,7 @@ public interface ConfigurableListableBeanFactory
 	 * Call {@link #destroySingletons()} for full cleanup in this case.
 	 * @see #destroySingletons()
 	 */
+	//
 	void preInstantiateSingletons() throws BeansException;
 
 }

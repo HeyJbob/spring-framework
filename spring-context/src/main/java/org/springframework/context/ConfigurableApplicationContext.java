@@ -27,6 +27,11 @@ import org.springframework.core.io.ProtocolResolver;
 import org.springframework.lang.Nullable;
 
 /**
+ * SPI接口将由大多数(如果不是所有的话)应用程序上下文实现。提供额外配置应用程序上下文的工具
+ * 中的应用程序上下文客户端方法。
+ *		配置和生命周期方法被封装在这里以避免使它们对ApplicationContext客户端代码暴露。目前的
+ * 	方法只能在启动和关闭代码中使用。
+ *
  * SPI interface to be implemented by most if not all application contexts.
  * Provides facilities to configure an application context in addition
  * to the application context client methods in the
@@ -67,6 +72,9 @@ public interface ConfigurableApplicationContext extends ApplicationContext, Life
 	 * @since 2.5
 	 * @see org.springframework.instrument.classloading.LoadTimeWeaver
 	 */
+	//工厂中LoadTimeWeaver bean的名称。如果提供了这样的bean，
+	//上下文将使用临时ClassLoader进行类型匹配
+	//允许LoadTimeWeaver处理所有实际的bean类。
 	String LOAD_TIME_WEAVER_BEAN_NAME = "loadTimeWeaver";
 
 	/**

@@ -42,6 +42,9 @@ import org.springframework.util.Assert;
  *
  * <p>See {@link Configuration @Configuration}'s javadoc for usage examples.
  *
+ * 	注解配置应用上下文
+ * 		允许使用register一个一个的注册类 以及使用scan进行类路径扫描。
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 3.0
@@ -51,6 +54,7 @@ import org.springframework.util.Assert;
  * @see ClassPathBeanDefinitionScanner
  * @see org.springframework.context.support.GenericXmlApplicationContext
  */
+
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
 
 	private final AnnotatedBeanDefinitionReader reader;

@@ -100,6 +100,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 
 	private boolean customClassLoader = false;
 
+	//是否刷新过，标识变量
 	private final AtomicBoolean refreshed = new AtomicBoolean();
 
 
@@ -260,6 +261,9 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 	 * to register beans through our public methods (or the BeanFactory's).
 	 * @see #registerBeanDefinition
 	 */
+	//持有一个内部BeanFactory并依赖于调用者
+	//通过我们的公共方法(或BeanFactory的)注册bean。
+	//是否刷新标识位，未刷新则 通过setId的方式 放入serializableFactoriesMap,
 	@Override
 	protected final void refreshBeanFactory() throws IllegalStateException {
 		if (!this.refreshed.compareAndSet(false, true)) {
@@ -287,6 +291,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 	/**
 	 * Return the single internal BeanFactory held by this context
 	 * (as ConfigurableListableBeanFactory).
+	 * 返回该上下文的内部单例工厂DefaultListableBeanFactory
 	 */
 	@Override
 	public final ConfigurableListableBeanFactory getBeanFactory() {

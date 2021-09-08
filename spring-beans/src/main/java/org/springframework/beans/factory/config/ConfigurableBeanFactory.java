@@ -42,6 +42,11 @@ import org.springframework.util.StringValueResolver;
  * needs. This extended interface is just meant to allow for framework-internal
  * plug'n'play and for special access to bean factory configuration methods.
  *
+ *
+ * 由大多数bean工厂实现的配置接口。提供了除了bean工厂之外，还可以配置一个bean工厂。
+ * 这个bean工厂接口不打算在普通应用程序中使用，针对于BeanFactory 或 ListableBeanFactory 的特殊需要。
+ * 这个扩展的接口只是为了支持框架内部的即插即用和对bean工厂配置方法的特殊访问。
+ *
  * @author Juergen Hoeller
  * @since 03.11.2003
  * @see org.springframework.beans.factory.BeanFactory
@@ -72,6 +77,10 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	 * @param parentBeanFactory the parent BeanFactory
 	 * @throws IllegalStateException if this factory is already associated with
 	 * a parent BeanFactory
+	 *
+	 *
+	 * 设置工厂的父工厂。
+	 * 它应该只在外部设置一个构造函数，如果它在工厂实例化时不可用。
 	 * @see #getParentBeanFactory()
 	 */
 	void setParentBeanFactory(BeanFactory parentBeanFactory) throws IllegalStateException;
@@ -242,6 +251,8 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	 * will always be applied after programmatically registered ones.
 	 * @param beanPostProcessor the post-processor to register
 	 */
+	//增加处理器 在工厂配置创建bean时调用。处理器按顺序被应用，order注解会失效。
+	// 自动检测后处理器将总是在程序注册后应用。
 	void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
 
 	/**

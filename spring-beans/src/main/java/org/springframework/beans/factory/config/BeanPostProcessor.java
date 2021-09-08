@@ -28,6 +28,8 @@ import org.springframework.lang.Nullable;
  * while post-processors that wrap beans with proxies will normally
  * implement {@link #postProcessAfterInitialization}.
  *
+ *
+ *
  * <h3>Registration</h3>
  * <p>An {@code ApplicationContext} can autodetect {@code BeanPostProcessor} beans
  * in its bean definitions and apply those post-processors to any beans subsequently
@@ -55,6 +57,10 @@ import org.springframework.lang.Nullable;
  * @see ConfigurableBeanFactory#addBeanPostProcessor
  * @see BeanFactoryPostProcessor
  */
+//工厂钩子，允许自定义修改新的bean实例，检查标记接口或 用代理包装bean。
+//通常，后置处理器 通过标记接口填充bean,或实现postProcessBeforeInitialization方法。
+//ApplicationContext可以自动检测{@code BeanPostProcessor} 的bean，并随后将这些后处理程序应用到任何bean/创建。
+//普通的{@code BeanFactory}允许以编程方式注册后处理器，将它们应用于通过bean工厂创建的所有bean。
 public interface BeanPostProcessor {
 
 	/**
@@ -70,6 +76,8 @@ public interface BeanPostProcessor {
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 */
+	//任何bean实例化之前 进行初始化回调。bean将已经被属性值填充。返回的bean实例可能是原始bean的包装器。
+	//默认实现返回给定的原样。
 	@Nullable
 	default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
@@ -96,6 +104,8 @@ public interface BeanPostProcessor {
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 * @see org.springframework.beans.factory.FactoryBean
 	 */
+	//在任何bean实例化之后 进行初始化回调。bean将已经被属性值填充。返回的bean实例可能是原始bean的包装器。
+	//默认实现返回给定的原样。
 	@Nullable
 	default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		return bean;

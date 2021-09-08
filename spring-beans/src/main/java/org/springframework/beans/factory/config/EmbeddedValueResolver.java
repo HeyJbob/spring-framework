@@ -34,6 +34,7 @@ import org.springframework.util.StringValueResolver;
  * @see ConfigurableBeanFactory#getBeanExpressionResolver()
  * @see BeanExpressionContext
  */
+//解析占位符的适配器：实现字符串值解析 策略接口，构造方法中传入工厂类，实现的方法根据工厂类中的方法进行解析。
 public class EmbeddedValueResolver implements StringValueResolver {
 
 	private final BeanExpressionContext exprContext;

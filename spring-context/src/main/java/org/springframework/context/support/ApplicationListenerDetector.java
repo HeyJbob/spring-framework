@@ -43,12 +43,15 @@ import org.springframework.util.ObjectUtils;
  * @author Juergen Hoeller
  * @since 4.3.4
  */
+//检测实现了ApplicationListener接口的bean,此方法捕获不能被{@code getBeanNamesForType}可靠检测到的bean。
+//和只针对顶级bean工作的相关操作。
 class ApplicationListenerDetector implements DestructionAwareBeanPostProcessor, MergedBeanDefinitionPostProcessor {
 
 	private static final Log logger = LogFactory.getLog(ApplicationListenerDetector.class);
 
 	private final transient AbstractApplicationContext applicationContext;
 
+	//是否单例
 	private final transient Map<String, Boolean> singletonNames = new ConcurrentHashMap<>(256);
 
 

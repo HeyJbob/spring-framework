@@ -107,6 +107,7 @@ import org.springframework.util.StringUtils;
  * {@link BeanDefinitionRegistry} interfaces, which represent the API and SPI
  * view of such a factory, respectively.
  *
+ * 抽象bean工厂超类，实现Bean创建方法，属性填充，初始化。处理运行时引用等
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -149,6 +150,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Dependency interfaces to ignore on dependency check and autowire, as Set of
 	 * Class objects. By default, only the BeanFactory interface is ignored.
 	 */
+	//依赖项检查和自动装配时要忽略的依赖项接口，如Set of类对象。默认情况下，只忽略BeanFactory接口。
 	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<>();
 
 	/**
