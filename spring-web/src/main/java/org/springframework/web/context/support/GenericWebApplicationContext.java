@@ -179,7 +179,7 @@ public class GenericWebApplicationContext extends GenericApplicationContext
 	 * Initialize the theme capability.
 	 */
 	@Override
-	protected void onRefresh() {
+	protected void  onRefresh() {
 		this.themeSource = UiApplicationContextUtils.initThemeSource(this);
 	}
 

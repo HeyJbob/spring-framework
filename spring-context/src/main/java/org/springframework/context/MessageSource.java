@@ -23,6 +23,8 @@ import org.springframework.lang.Nullable;
 /**
  * Strategy interface for resolving messages, with support for the parameterization
  * and internationalization of such messages.
+ *	策略接口用于解析消息，并支持参数化。和此类信息的国际化。
+ *
  *
  * <p>Spring provides two out-of-the-box implementations for production:
  * <ul>

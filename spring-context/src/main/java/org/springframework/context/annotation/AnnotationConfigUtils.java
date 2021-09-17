@@ -138,7 +138,10 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	/**
-	 * Register all relevant annotation post processors in the given registry.
+	 * Register all relevant annotation post processors in the given registry.、
+	 *
+	 * 在给定的注册表中注册 所有相关的注释post处理器
+	 *
 	 * @param registry the registry to operate on
 	 * @param source the configuration source element (already extracted)
 	 * that this registration was triggered from. May be {@code null}.
@@ -217,6 +220,7 @@ public abstract class AnnotationConfigUtils {
 		return new BeanDefinitionHolder(definition, beanName);
 	}
 
+	//打开工厂
 	@Nullable
 	private static DefaultListableBeanFactory unwrapDefaultListableBeanFactory(BeanDefinitionRegistry registry) {
 		if (registry instanceof DefaultListableBeanFactory) {

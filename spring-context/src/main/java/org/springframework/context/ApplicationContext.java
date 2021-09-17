@@ -25,7 +25,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * 为应用程序提供配置的中央接口。当应用程序运行时，这是只读的，实现这个则支持可加载。
- * 从父类上下文继承，后代上下文中的定义，总是优先考虑。这意味着，例如，单例父类上下文可以被整个web应用程序使用，
+ * 从父类上下文继承，后代上下文中的定义项，总是优先考虑。这意味着，例如，单例父类上下文可以被整个web应用程序使用，
  * 而每个servlet都有它自己独立于任何其他servlet的子上下文。
  *
  *
@@ -48,7 +48,9 @@ import org.springframework.lang.Nullable;
  * context can be used by an entire web application, while each servlet has
  * its own child context that is independent of that of any other servlet.
  * </ul>
- *	除了标准的BeanFactory 的生命周期能力，ApplicationContext实现检测和调用 ApplicationContextAware ResourceLoaderAware 和 ApplicationEventPublisherAware
+ *	除了标准的BeanFactory 的生命周期能力，ApplicationContext实现检测和调用
+ *	ApplicationContextAware ResourceLoaderAware 和 ApplicationEventPublisherAware
+ *
  * <p>In addition to standard {@link org.springframework.beans.factory.BeanFactory}
  * lifecycle capabilities, ApplicationContext implementations detect and invoke
  * {@link ApplicationContextAware} beans as well as {@link ResourceLoaderAware},

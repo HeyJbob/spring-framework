@@ -49,9 +49,8 @@ import org.springframework.lang.Nullable;
  * and {@code containsBeanDefinition}, the methods in this interface
  * are not designed for frequent invocation. Implementations may be slow.
  *
- *
  * 工厂实现接口的扩展，可以枚举所有bean实例。而不是按命名逐个命名查找。预加载所有的bean定义。
- * 如果是HierarchicalBeanFactory，会返回工厂层次到账户，但会关联bean定义到这个工厂。使用BeanFactoryUtils决定bean在哪个工厂中。
+ * 如果是HierarchicalBeanFactory，会返回工厂层次接口到账户，但会关联bean定义到这个工厂。使用BeanFactoryUtils决定bean在哪个工厂中。
  *
  * 所有方法将只作用于这个工厂的bean定义，忽略其他方式注册的单例bean（比如ConfigurableBeanFactory的registerSingleton）
  *

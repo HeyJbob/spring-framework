@@ -78,6 +78,14 @@ import org.springframework.util.ClassUtils;
  * their corresponding bean definitions registered before any other
  * {@code BeanFactoryPostProcessor} executes.
  *
+ * BeanFactoryPostProcessor 用于引导处理的配置类。
+ * 用 <context:annotation-config/> 或者 <context:component-scan/> 时默认注册。
+ * 否则可以手动声明为 BeanFactoryPostProcessor
+ *
+ * 后置处理器 的优先级在任何配置bean的方法声明中 都是最高。
+ *
+ *
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Phillip Webb
@@ -92,6 +100,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * <p>This default for configuration-level import purposes may be overridden through
 	 * {@link #setBeanNameGenerator}. Note that the default for component scanning purposes
 	 * is a plain {@link AnnotationBeanNameGenerator#INSTANCE}, unless overridden through
+	 *
+	 * 
+	 *
 	 * {@link #setBeanNameGenerator} with a unified user-level bean name generator.
 	 * @since 5.2
 	 * @see #setBeanNameGenerator

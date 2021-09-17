@@ -32,6 +32,13 @@ package org.springframework.core.env;
  * The effect is that an Environment object is 'read-only' until it is being accessed from
  * a ConfigurableApplicationContext, at which point it too may be configured.
  *
+ * 接口指示包含并公开{@link Environment}引用的组件。
+ *
+ * 所有Spring应用程序上下文都是EnvironmentCapable，并且主要使用接口用于在接受BeanFactory的框架方法中执行{@code instanceof}检查实例，
+ * 这些实例可能是也可能不是ApplicationContext实例，以便进行交互。
+ * 如果环境确实可用的话。
+ *
+ *
  * @author Chris Beams
  * @since 3.1
  * @see Environment

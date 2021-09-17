@@ -78,6 +78,13 @@ public class AnnotatedBeanDefinitionReader {
 	 * in the form of a {@code BeanDefinitionRegistry}
 	 * @param environment the {@code Environment} to use when evaluating bean definition
 	 * profiles.
+	 *
+	 * 为注册表新建一个 AnnotatedBeanDefinitionReader，用给定的Environment。
+	 * 以 BeanDefinitionRegistry的形式去加载bean定义到工厂中。
+	 * 在执行bean定义时 使用Environment。
+	 *
+	 * 将后置处理器的bean放在容器中，调用 DefaultListableBeanFactory.registerBeanDefinition
+	 *
 	 * @since 3.1
 	 */
 	public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry, Environment environment) {

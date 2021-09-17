@@ -56,6 +56,9 @@ package org.springframework.core.env;
  * {@link ConfigurableEnvironment} Javadoc for usage examples demonstrating manipulation
  * of property sources prior to application context {@code refresh()}.
  *
+ * 表示当前应用程序运行的环境，关键是 properties 和 profiles 这两个参数。
+ * profile被设置为活跃时，他就是一个bean定义注册容器的逻辑分组命名。
+ *
  * @author Chris Beams
  * @since 3.1
  * @see PropertyResolver

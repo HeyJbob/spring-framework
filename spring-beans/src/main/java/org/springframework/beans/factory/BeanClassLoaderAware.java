@@ -28,6 +28,10 @@ package org.springframework.beans.factory;
  * <p>For a list of all bean lifecycle methods, see the
  * {@link BeanFactory BeanFactory javadocs}.
  *
+ * 允许bean感知该bean的回调,类使用的类装入器提供bean工厂来加载bean类。
+ * 这主要是为了实现框架类必须通过名称来挑选应用程序类，尽管它们本身可能从共享类装入器装入。
+ *
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 2.0
@@ -42,6 +46,7 @@ public interface BeanClassLoaderAware extends Aware {
 	 * a bean instance.
 	 * <p>Invoked <i>after</i> the population of normal bean properties but
 	 * <i>before</i> an initialization callback such as
+	 *
 	 * {@link InitializingBean InitializingBean's}
 	 * {@link InitializingBean#afterPropertiesSet()}
 	 * method or a custom init-method.

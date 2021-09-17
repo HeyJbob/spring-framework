@@ -28,6 +28,10 @@ package org.springframework.beans.factory;
  * Refer to {@link org.springframework.context.support.ApplicationContextAwareProcessor}
  * for an example of processing specific {@code *Aware} interface callbacks.
  *
+ * 超级标记接口，标识容器内的bean通过一个回调风格的方法。
+ * 仅仅实现{@link Aware}没有提供默认功能，相反，处理必须显式地完成
+ *
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

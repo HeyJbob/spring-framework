@@ -43,6 +43,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Utilities for identifying {@link Configuration} classes.
+ *	识别 Configuration 注解的 类。
+ *
  *
  * @author Chris Beams
  * @author Juergen Hoeller

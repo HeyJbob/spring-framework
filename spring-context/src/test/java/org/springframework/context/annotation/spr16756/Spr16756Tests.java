@@ -31,9 +31,10 @@ public class Spr16756Tests {
 	//todo
 	@Test
 	public void shouldNotFailOnNestedScopedComponent() {
+		//注解配置应用上下文，扫描注册Bean
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 
-		//最终调用 DefaultListableBeanFactory 中 父类的SimpleAliasRegistry 的registerAlias方法
+		//最终调用 DefaultListableBeanFactory 中父类的 SimpleAliasRegistry 的 registerAlias 方法
 		context.register(ScanningConfiguration.class);
 
 		//刷新上下文环境
@@ -41,6 +42,9 @@ public class Spr16756Tests {
 
 		//获取bean
 		ScannedComponent bean = context.getBean(ScannedComponent.class);
+
+		//getBean进去getBeanFactory，会进入 GenericApplicationContext，因为这里  AnnotationConfigApplicationContext 继承自
+
 		ScannedComponent.State bean1 = context.getBean(ScannedComponent.State.class);
 		System.out.println("1111111:" + bean.iDoAnything());
 		System.out.println("2222222:" + bean1.toString());

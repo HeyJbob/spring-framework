@@ -42,7 +42,6 @@ import org.springframework.util.StringValueResolver;
  * needs. This extended interface is just meant to allow for framework-internal
  * plug'n'play and for special access to bean factory configuration methods.
  *
- *
  * 由大多数bean工厂实现的配置接口。提供了除了bean工厂之外，还可以配置一个bean工厂。
  * 这个bean工厂接口不打算在普通应用程序中使用，针对于BeanFactory 或 ListableBeanFactory 的特殊需要。
  * 这个扩展的接口只是为了支持框架内部的即插即用和对bean工厂配置方法的特殊访问。

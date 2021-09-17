@@ -43,6 +43,9 @@ import org.springframework.util.Assert;
  * interface, providing support for qualifier annotations as well as for lazy resolution
  * driven by the {@link Lazy} annotation in the {@code context.annotation} package.
  *
+ * 完全实现 AutowireCandidateResolver 策略接口，提供了对 限定符注释 和惰性解析的支持
+ * 由 Lazy 注释驱动
+ *
  * @author Juergen Hoeller
  * @since 4.0
  */

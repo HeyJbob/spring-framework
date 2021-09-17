@@ -320,6 +320,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * Set a custom autowire candidate resolver for this BeanFactory to use
 	 * when deciding whether a bean definition should be considered as a
 	 * candidate for autowiring.
+	 *
+	 * 为这个BeanFactory设置要使用的 自定义自动装配候选解析器
+	 * 当决定一个bean定义是否应该被视为自动装配候选人。
+	 *
 	 */
 	public void setAutowireCandidateResolver(AutowireCandidateResolver autowireCandidateResolver) {
 		Assert.notNull(autowireCandidateResolver, "AutowireCandidateResolver must not be null");

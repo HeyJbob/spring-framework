@@ -157,6 +157,10 @@ public interface BeanFactory {
 	 * beans <i>created</i> by the FactoryBean. For example, if the bean named
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
+	 *
+	 * 用于解除对{@link FactoryBean}实例的引用，并将其与bean 和FactoryBean区分。例如，如果bean被命名为
+	 * myJndiObject是一个FactoryBean，获取 &myJndiObject 将返回工厂，而不是由工厂返回的实例。
+	 *
 	 */
 	String FACTORY_BEAN_PREFIX = "&";
 
@@ -168,6 +172,14 @@ public interface BeanFactory {
 	 * returned objects in the case of Singleton beans.
 	 * <p>Translates aliases back to the corresponding canonical bean name.
 	 * <p>Will ask the parent factory if the bean cannot be found in this factory instance.
+	 *
+	 * 返回指定bean的一个实例，该实例可以是共享的，也可以是独立的。
+	 * 该方法允许使用Spring BeanFactory来 代替单例或原型设计模式。
+	 * 对于单例bean，调用者可以保留对返回的对象的引用。
+	 *
+	 *  会把别名转换回相应的规范bean名称。
+	 * 如果在这个工厂实例中找不到bean，将询问父工厂。
+	 *
 	 * @param name the name of the bean to retrieve
 	 * @return an instance of the bean
 	 * @throws NoSuchBeanDefinitionException if there is no bean with the specified name
@@ -183,6 +195,10 @@ public interface BeanFactory {
 	 * the result correctly, as can happen with {@link #getBean(String)}.
 	 * <p>Translates aliases back to the corresponding canonical bean name.
 	 * <p>Will ask the parent factory if the bean cannot be found in this factory instance.
+	 *
+	 * 但提供了一个类型度量安全，抛出BeanNotOfRequiredTypeException，如果bean不是
+	 *需要的类型。这意味着ClassCastException不能在强制类型转换时抛出结果正确，就像{@link #getBean(String)}一样。
+	 *
 	 * @param name the name of the bean to retrieve
 	 * @param requiredType type the bean must match; can be an interface or superclass
 	 * @return an instance of the bean
@@ -199,6 +215,9 @@ public interface BeanFactory {
 	 * @param name the name of the bean to retrieve
 	 * @param args arguments to use when creating a bean instance using explicit arguments
 	 * (only applied when creating a new instance as opposed to retrieving an existing one)
+	 *
+	 *  允许指定显式构造函数参数/工厂方法参数，覆盖bean定义中指定的默认参数(如果有)。
+	 *
 	 * @return an instance of the bean
 	 * @throws NoSuchBeanDefinitionException if there is no such bean definition
 	 * @throws BeanDefinitionStoreException if arguments have been given but
@@ -251,6 +270,8 @@ public interface BeanFactory {
 	 * @return a corresponding provider handle
 	 * @since 5.1
 	 * @see #getBeanProvider(ResolvableType)
+	 *
+	 * 返回指定bean的提供程序，允许延迟按需检索实例，包括可用性和惟一性选项。
 	 */
 	<T> ObjectProvider<T> getBeanProvider(Class<T> requiredType);
 

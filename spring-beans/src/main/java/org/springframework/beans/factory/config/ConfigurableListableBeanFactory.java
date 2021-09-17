@@ -35,8 +35,8 @@ import org.springframework.lang.Nullable;
  * use cases. This interface is just meant to allow for framework-internal
  * plug'n'play even when needing access to bean factory configuration methods.
  *
- *	大多数可列出的工厂实现的配置接口
- *	除了ConfigurableBeanFactory 还提供用于分析和修改bean定义，并预实例化单例。
+ *	大多数工厂都实现的配置接口，除了实现ConfigurableBeanFactory的能力。
+ *	 还提供用于分析和修改bean定义 的能力，并预实例化单例。
  *	一般不用于应用代码，为BeanFactory或ListableBeanFactory提供特殊使用。这个接口只是为了允许框架内部
  * 即插即用，即使需要访问bean工厂配置方法。
  *
@@ -66,8 +66,8 @@ public interface ConfigurableListableBeanFactory
 	 * @see org.springframework.context.ApplicationContextAware
 	 */
 	//对于自动装配，忽略给定的依赖接口。这通常会被应用程序上下文用来注册
-	//以其他方式解析的依赖项，如BeanFactory through
-	//BeanFactoryAware或ApplicationContext通过ApplicationContextAware。
+	//以其他方式解析的依赖项，如BeanFactory 通过
+	//BeanFactoryAware 或 ApplicationContext通过ApplicationContextAware。
 	//默认情况下，只有BeanFactoryAware接口被忽略。
 	//对于要忽略的其他类型，请为每个类型调用此方法。
 	//默认情况下，只有BeanFactoryAware接口被忽略。 要忽略给定的依赖接口，调用该方法。
@@ -121,6 +121,9 @@ public interface ConfigurableListableBeanFactory
 	 * be castable to a more specific implementation type, if necessary.
 	 * <p><b>NOTE:</b> This method does <i>not</i> consider ancestor factories.
 	 * It is only meant for accessing local bean definitions of this factory.
+	 *
+	 *
+	 *
 	 * @param beanName the name of the bean
 	 * @return the registered BeanDefinition
 	 * @throws NoSuchBeanDefinitionException if there is no bean with the given name

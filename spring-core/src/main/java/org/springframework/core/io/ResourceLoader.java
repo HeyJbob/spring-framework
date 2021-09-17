@@ -31,6 +31,9 @@ import org.springframework.util.ResourceUtils;
  * <p>Bean properties of type Resource and Resource array can be populated
  * from Strings when running in an ApplicationContext, using the particular
  * context's resource loading strategy.
+ * bean资源类型的配置 当运行在上下文时 可以通过字符串来填充，用适配的环境资源加载策略。
+ *
+ * 加载资源的策略接口，ApplicationContext会提供此功能，ResourcePatternResolver也支持扩展。
  *
  * @author Juergen Hoeller
  * @since 10.03.2004
