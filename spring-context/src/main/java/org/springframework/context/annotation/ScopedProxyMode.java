@@ -19,6 +19,9 @@ package org.springframework.context.annotation;
 /**
  * Enumerates the various scoped-proxy options.
  *
+ * 枚举各种作用域代理选项。
+ *
+ *
  * <p>For a more complete discussion of exactly what a scoped proxy is, see the
  * section of the Spring reference documentation entitled '<em>Scoped beans as
  * dependencies</em>'.
@@ -32,6 +35,10 @@ public enum ScopedProxyMode {
 	/**
 	 * Default typically equals {@link #NO}, unless a different default
 	 * has been configured at the component-scan instruction level.
+	 *
+	 * 默认值通常等于{@link #NO}，除非有不同的默认值
+	 * 已在组件扫描指令级别配置。
+	 *
 	 */
 	DEFAULT,
 
@@ -41,6 +48,11 @@ public enum ScopedProxyMode {
 	 * non-singleton scoped instance, which should favor the use of the
 	 * {@link #INTERFACES} or {@link #TARGET_CLASS} proxy-modes instead if it
 	 * is to be used as a dependency.
+	 *
+	 * 不要创建限定范围的代理。这个代理模式通常不有用，当与非单例作用域实例，
+	 * 这应该有利于使用{@link #INTERFACES}或{@link #TARGET_CLASS}代理模式
+	 * 将被用作依赖项。
+	 *
 	 */
 	NO,
 

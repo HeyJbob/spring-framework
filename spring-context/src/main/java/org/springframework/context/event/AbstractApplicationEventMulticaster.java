@@ -175,6 +175,7 @@ public abstract class AbstractApplicationEventMulticaster
 		ListenerCacheKey cacheKey = new ListenerCacheKey(eventType, sourceType);
 
 		// Potential new retriever to populate
+		//有可能出现新的回调
 		CachedListenerRetriever newRetriever = null;
 
 		// Quick check for existing entry on ConcurrentHashMap
@@ -199,6 +200,7 @@ public abstract class AbstractApplicationEventMulticaster
 			}
 			// If result is null, the existing retriever is not fully populated yet by another thread.
 			// Proceed like caching wasn't possible for this current local attempt.
+			//如果result为null，则现有检索器还没有被另一个线程完全填充。当前本地尝试的缓存是不可能的。
 		}
 
 		return retrieveApplicationListeners(eventType, sourceType, newRetriever);
@@ -206,6 +208,9 @@ public abstract class AbstractApplicationEventMulticaster
 
 	/**
 	 * Actually retrieve the application listeners for the given event and source type.
+	 *
+	 * 实际检索给定事件和源类型的应用程序侦听器。
+	 *
 	 * @param eventType the event type
 	 * @param sourceType the event source type
 	 * @param retriever the ListenerRetriever, if supposed to populate one (for caching purposes)
@@ -227,6 +232,7 @@ public abstract class AbstractApplicationEventMulticaster
 
 		// Add programmatically registered listeners, including ones coming
 		// from ApplicationListenerDetector (singleton beans and inner beans).
+		//添加以编程方式注册的侦听器，包括即将到来的侦听器 从ApplicationListenerDetector(单例bean和内部bean)。
 		for (ApplicationListener<?> listener : listeners) {
 			if (supportsEvent(listener, eventType, sourceType)) {
 				if (retriever != null) {
@@ -422,6 +428,11 @@ public abstract class AbstractApplicationEventMulticaster
 	 * Helper class that encapsulates a specific set of target listeners,
 	 * allowing for efficient retrieval of pre-filtered listeners.
 	 * <p>An instance of this helper gets cached per event type and source type.
+	 *
+	 * Helper类封装了一组特定的目标侦听器，
+	 * 允许有效检索预先过滤的听众。
+	 * 该helper的实例将根据事件类型和源类型进行缓存。
+	 *
 	 */
 	private class CachedListenerRetriever {
 

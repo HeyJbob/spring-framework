@@ -122,6 +122,8 @@ public final class CachedIntrospectionResults {
 	 * Map keyed by Class containing CachedIntrospectionResults, softly held.
 	 * This variant is being used for non-cache-safe bean classes.
 	 */
+	//映射由包含CachedIntrospectionResults的类指定，软持有。
+	//该变体用于非缓存安全的bean类。
 	static final ConcurrentMap<Class<?>, CachedIntrospectionResults> softClassCache =
 			new ConcurrentReferenceHashMap<>(64);
 
@@ -148,6 +150,10 @@ public final class CachedIntrospectionResults {
 	 * Clear the introspection cache for the given ClassLoader, removing the
 	 * introspection results for all classes underneath that ClassLoader, and
 	 * removing the ClassLoader (and its children) from the acceptance list.
+	 *
+	 * 清除给定ClassLoader的自省缓存，删除内省结果为ClassLoader下的所有类
+	 * 从接受列表中移除ClassLoader(及其子类)。
+	 *
 	 * @param classLoader the ClassLoader to clear the cache for
 	 */
 	public static void clearClassLoader(@Nullable ClassLoader classLoader) {

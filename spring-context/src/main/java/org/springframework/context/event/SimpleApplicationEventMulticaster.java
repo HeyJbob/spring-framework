@@ -41,6 +41,18 @@ import org.springframework.util.ErrorHandler;
  * but adds minimal overhead. Specify an alternative task executor to have
  * listeners executed in different threads, for example from a thread pool.
  *
+ * {@link ApplicationEventMulticaster}接口的简单实现。
+ * 多播所有事件给所有注册的监听器，由其决定 监听器忽略他们不感兴趣的事件。
+ * 监听器通常会执行相应的{@code instanceof}
+ * 检查传入的事件对象。
+ *
+ * 默认情况下，所有侦听器都在调用线程中调用。
+ * 这可能会导致恶意监听器阻塞整个应用程序，但是增加了最小的开销。指定一个可供选择的任务执行器
+ * 监听器在不同的线程中执行，例如线程池。
+ *
+ *
+ * 用线程池，执行 监听器和对应的事件。
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Stephane Nicoll
@@ -78,6 +90,14 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	 * caller until all listeners have been executed. However, note that asynchronous
 	 * execution will not participate in the caller's thread context (class loader,
 	 * transaction association) unless the TaskExecutor explicitly supports this.
+	 *
+	 * 设置一个自定义执行器(通常是{@link org.springframework.core.task.TaskExecutor})
+	 * 调用每个监听器。默认值相当于{@link org.springframework.core.task.SyncTaskExecutor}，
+	 * 在调用线程中同步执行所有监听器。
+	 *
+	 * 考虑在这里指定一个异步任务执行器，以不阻塞调用，直到所有的监听器都被执行。但是，请注意异步
+	 * 执行不会参与调用者的线程上下文(类装入器，事务关联)，除非TaskExecutor明确支持。
+	 *
 	 * @see org.springframework.core.task.SyncTaskExecutor
 	 * @see org.springframework.core.task.SimpleAsyncTaskExecutor
 	 */
@@ -147,6 +167,9 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 
 	/**
 	 * Invoke the given listener with the given event.
+	 *
+	 * 用给定的事件调用给定的侦听器
+	 *
 	 * @param listener the ApplicationListener to invoke
 	 * @param event the current event to propagate
 	 * @since 4.1

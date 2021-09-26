@@ -31,6 +31,14 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * modification. Essentially, this only applies to operations defined on the
  * {@link RootBeanDefinition} itself but not to the properties of its base classes.
  *
+ * 在运行时合并 bean定义的后处理器回调接口。{@link BeanPostProcessor}实现可以按顺序实现这个子接口
+ *后处理合并的bean定义(原始bean的已处理副本)
+ * Spring {@code BeanFactory}用来创建bean实例。{@link #postProcessMergedBeanDefinition}方法可以作为内省
+ *bean定义，以便在后期处理之前准备一些缓存的元数据 bean的实际实例。也允许修改bean定义，
+ *
+ * 但是仅用于定义实际用于并发的属性修改。本质上，这只适用于定义在{@link RootBeanDefinition}本身，但不是其基类的属性。
+ *
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory#getMergedBeanDefinition

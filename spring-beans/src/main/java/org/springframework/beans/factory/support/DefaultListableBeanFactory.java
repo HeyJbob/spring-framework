@@ -106,6 +106,7 @@ import org.springframework.util.StringUtils;
  *
  * 实现	ConfigurableListableBeanFactory 和 BeanDefinitionRegistry接口
  * 一个成熟的工厂，基于bean定义元数据，可通过后处理器扩展。
+ *
  * 典型用法：首先注册所有bean定义，访问并按照名字查找bean.
  *	特定bean定义格式的读取器通常是单独实现而不是作为bean工厂的子类。
  *	它管理现有的bean实例，而不是基于bean定义创建新的实例。
@@ -900,6 +901,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		// Iterate over a copy to allow for init methods which in turn register new bean definitions.
 		// While this may not be part of the regular factory bootstrap, it does otherwise work fine.
+		//对副本进行迭代，以允许初始化方法注册新的bean定义。
+		//虽然这可能不是常规工厂引导的一部分，但它在其他方面工作得很好。
 		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
 
 		// Trigger initialization of all non-lazy singleton beans...
@@ -932,6 +935,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		// Trigger post-initialization callback for all applicable beans...
+		// 为所有适用的bean触发初始化后回调。
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
 			if (singletonInstance instanceof SmartInitializingSingleton) {
@@ -953,7 +957,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	//---------------------------------------------------------------------
 	// Implementation of BeanDefinitionRegistry interface
 	//---------------------------------------------------------------------
-
+	//注册bean定义
+	//hasBeanCreationStarted
 	@Override
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
 			throws BeanDefinitionStoreException {
@@ -1003,6 +1008,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		else {
 			if (hasBeanCreationStarted()) {
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
+				//不能修改启动中的集合元素
+				//放入 beanDefinitionMap，更新名称列表 beanDefinitionNames。移除手动注册的单例
 				synchronized (this.beanDefinitionMap) {
 					this.beanDefinitionMap.put(beanName, beanDefinition);
 					List<String> updatedDefinitions = new ArrayList<>(this.beanDefinitionNames.size() + 1);

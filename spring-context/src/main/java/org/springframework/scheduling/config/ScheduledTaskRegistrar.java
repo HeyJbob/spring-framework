@@ -351,6 +351,9 @@ public class ScheduledTaskRegistrar implements ScheduledTaskHolder, Initializing
 
 	/**
 	 * Schedule all registered tasks against the underlying
+	 *
+	 * 根据底层调度所有已注册的任务
+	 *
 	 * {@linkplain #setTaskScheduler(TaskScheduler) task scheduler}.
 	 */
 	@SuppressWarnings("deprecation")

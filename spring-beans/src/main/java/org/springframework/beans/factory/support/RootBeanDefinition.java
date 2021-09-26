@@ -104,6 +104,7 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	Executable resolvedConstructorOrFactoryMethod;
 
 	/** Package-visible field that marks the constructor arguments as resolved. */
+	// 包可见字段，标记构造函数参数已解析。
 	boolean constructorArgumentsResolved = false;
 
 	/** Package-visible field for caching fully resolved constructor arguments. */
@@ -118,6 +119,7 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	final Object postProcessingLock = new Object();
 
 	/** Package-visible field that indicates MergedBeanDefinitionPostProcessor having been applied. */
+	//显示已应用合并bean定义 postprocessor的包可见字段
 	boolean postProcessed = false;
 
 	/** Package-visible field that indicates a before-instantiation post-processor having kicked in. */

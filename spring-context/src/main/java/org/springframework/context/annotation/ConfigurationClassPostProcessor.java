@@ -101,7 +101,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * {@link #setBeanNameGenerator}. Note that the default for component scanning purposes
 	 * is a plain {@link AnnotationBeanNameGenerator#INSTANCE}, unless overridden through
 	 *
-	 * 
+	 *
 	 *
 	 * {@link #setBeanNameGenerator} with a unified user-level bean name generator.
 	 * @since 5.2

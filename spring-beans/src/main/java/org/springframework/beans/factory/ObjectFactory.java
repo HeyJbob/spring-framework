@@ -31,6 +31,14 @@ import org.springframework.beans.BeansException;
  * to be fed as an API to other beans (through injection). As such, the
  * {@code getObject()} method has different exception handling behavior.
  *
+ * 定义一个可以返回Object实例的工厂(可能是共享的或独立的)。该接口通常用于封装一个通用工厂
+ * 每次调用返回一个新的目标对象实例(原型)。
+ * 这个接口类似于 FactoryBean，但是实现了的SPI实例通常被定义为SPI实例
+ * {@link BeanFactory}，而该类的实现通常意味着
+ * 作为API提供给其他bean(通过注入)。因此,
+ * {@code getObject()}方法有不同的异常处理行为。
+ *
+ *
  * @author Colin Sampaleanu
  * @since 1.0.2
  * @param <T> the object type

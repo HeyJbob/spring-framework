@@ -54,6 +54,29 @@ import org.springframework.lang.Nullable;
  * synchronization other than for purposes of lazy initialization within the
  * FactoryBean itself (or the like).
  *
+ * 暴露对象的工厂
+ *
+ * 本身是独立对象的工厂，它被用作暴露对象的工厂，而不是直接作为将公开自身的bean实例。
+ * getObject创建对外暴露的bean引用。
+ * 容器只负责管理FactoryBean实例的生命周期，而不是FactoryBean创建的对象的生命周期。
+ *
+ *
+ * 接口由工厂中的对象实现
+ * 本身是独立对象的工厂。如果bean实现了该接口，它被用作对象暴露的工厂，而不是直接作为将公开自身的bean实例。
+ * NB:实现此接口的bean不能作为普通bean使用
+ * FactoryBean 以bean样式定义，但bean引用的暴露对象 是 getObject 创建的
+ * FactoryBeans可以支持单例和原型，也可以创建对象在需要时延迟或在启动。SmartFactoryBean 接口允许暴露更细粒度的行为元数据。
+ * 该接口在框架内部被大量使用，例如 ProxyFactoryBean 或者 JndiObjectFactoryBean
+ * 它可以用于自定义组件;然而，这只在基础架构代码中很常见。
+ *
+ * FactoryBean是一个编程契约。实现 不应该依赖于注释驱动的注入或其他反射功能。
+ *
+ * getObject 调用可能会在引导过程，甚至在任何后处理器设置之前。如果你需要其他bean，实现 BeanFactoryAware 并以编程方式获取它们。
+ * 容器只负责管理FactoryBean实例的生命周期，而不是FactoryBean创建的对象的生命周期。因此,在暴露的bean对象上的destroy方法(如Closeable#close()})
+ * 将不会被自动调用。相反，FactoryBean应该实现 DisposableBean；并将此类 关闭调用委托给底层对象。
+ *
+ * 最后，FactoryBean对象参与到包含BeanFactory的同步创建bean。通常不需要内部同步，为了延迟初始化FactoryBean本身(或类似的东西)。
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 08.03.2003
@@ -89,6 +112,13 @@ public interface FactoryBean<T> {
 	 * FactoryBean implementations are encouraged to throw
 	 * FactoryBeanNotInitializedException themselves now, as appropriate.
 	 * @return an instance of the bean (can be {@code null})
+	 *
+	 * 返回一个对象的实例(可能是共享的或独立的)由该工厂管理。
+	 * 与{@link BeanFactory}一样，这允许支持单例和原型设计模式。
+	 * 如果这个FactoryBean在调用(例如，因为它涉及到循环引用)，抛出相应的{@link FactoryBeanNotInitializedException}。
+	 * 从Spring 2.0开始，允许FactoryBeans返回{@code null}对象。工厂会将此作为正常值来使用;它在这种情况下将不再抛出FactoryBeanNotInitializedException。
+	 * 鼓励FactoryBean实现抛出FactoryBeanNotInitializedException自己现在，适当的。
+	 *
 	 * @throws Exception in case of creation errors
 	 * @see FactoryBeanNotInitializedException
 	 */

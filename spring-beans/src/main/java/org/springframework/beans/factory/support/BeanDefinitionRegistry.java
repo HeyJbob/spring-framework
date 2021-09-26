@@ -34,6 +34,7 @@ import org.springframework.core.AliasRegistry;
  * interface. Known implementors within the Spring core are DefaultListableBeanFactory
  * and GenericApplicationContext.
  *
+ *	Bean定义注册表
  * //用于保存bean定义(例如RootBeanDefinition/子类实现)的注册中心的接口,通常由BeanFactories实现
  * @author Juergen Hoeller
  * @since 26.11.2003

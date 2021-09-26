@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
  *
  * 带有名称和别名的bean定义的Holder。可以注册为内部bean的占位符。
  * 也可以用于内部bean的编程注册定义。如果你不关心BeanNameAware之类的东西，
- * 注册RootBeanDefinition或ChildBeanDefinition就足够了。
+ * 注册 RootBeanDefinition 或ChildBeanDefinition并 就足够了。
  *
  * @author Juergen Hoeller
  * @since 1.0.2

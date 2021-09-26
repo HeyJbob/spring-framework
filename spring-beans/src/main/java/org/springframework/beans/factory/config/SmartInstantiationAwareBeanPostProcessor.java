@@ -31,6 +31,13 @@ import org.springframework.lang.Nullable;
  * interface or derive from the {@link InstantiationAwareBeanPostProcessorAdapter}
  * class. New methods might be added to this interface even in point releases.
  *
+ * {@link InstantiationAwareBeanPostProcessor}接口的扩展，
+ * *添加一个回调函数，用于预测被处理bean的最终类型。
+
+ * 注意:该接口是一个专用接口，主要用框架内部使用。一般来说,内部
+ * *后处理器应该简单地实现普通的{@link BeanPostProcessor}接口或派生自{@link InstantiationAwareBeanPostProcessorAdapter}
+ * 类。即使在点发布中，也可能向该接口添加新方法。
+ *
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see InstantiationAwareBeanPostProcessorAdapter
@@ -81,6 +88,16 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	 * for the affected bean has been built for a call to this method already,
 	 * it will be exposes as final bean reference by default).
 	 * <p>The default implementation returns the given {@code bean} as-is.
+	 *
+	 *	获取用于早期访问指定bean的引用，通常用于解析循环引用。
+	 * 这个回调给后处理器一个暴露包装器的机会
+	 *  early—即在目标bean实例完全初始化之前。暴露的对象应该等同于what
+	 *{@link #postProcessBeforeInitialization} / {@link #postProcessAfterInitialization}
+	 * 否则就会暴露。注意，此方法返回的对象将被用作bean引用，除非后处理器返回一个不同的包装后的进程回调。换句话说，就是那些后过程
+	 *回调函数可能最终暴露相同的引用或其他从这些后续回调返回生bean实例(如果包装器因为受影响的bean已经为这个方法的调用而构建，
+	 * 默认情况下，它将作为最终bean引用公开)。
+	 * 默认实现返回给定的{@code bean}原样。
+	 *
 	 * @param bean the raw bean instance
 	 * @param beanName the name of the bean
 	 * @return the object to expose as bean reference

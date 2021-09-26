@@ -36,6 +36,8 @@ Spr16756Tests
 context.refresh(); 
 refresh方法
 
+解决循环引用
+protected Object getSingleton(String beanName, boolean allowEarlyReference)
 
 
 

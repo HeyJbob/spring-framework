@@ -41,6 +41,10 @@ public interface BeanDefinitionRegistryPostProcessor extends BeanFactoryPostProc
 	 * standard initialization. All regular bean definitions will have been loaded,
 	 * but no beans will have been instantiated yet. This allows for adding further
 	 * bean definitions before the next post-processing phase kicks in.
+	 *
+	 *  将应用程序上下文的内部bean定义注册表修改为 标准的初始化。所有常规bean定义都将被加载，
+	 * 但还没有实例化bean。这允许进一步添加 在下一个后处理阶段开始之前的bean定义。
+	 *
 	 * @param registry the bean definition registry used by the application context
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 */

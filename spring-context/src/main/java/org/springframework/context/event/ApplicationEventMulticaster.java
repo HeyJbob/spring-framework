@@ -29,6 +29,9 @@ import org.springframework.lang.Nullable;
  * a Spring {@link org.springframework.context.ApplicationContext}, can use an
  * {@code ApplicationEventMulticaster} as a delegate for actually publishing events.
  *
+ * 由对象实现，可以管理多个 监听器，并像他们发布事件。
+ * 通常一个上下文，可以用 ApplicationEventMulticaster 作为实际发布事件的委托。
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Stephane Nicoll
@@ -72,11 +75,15 @@ public interface ApplicationEventMulticaster {
 	 * <p>Consider using {@link #multicastEvent(ApplicationEvent, ResolvableType)}
 	 * if possible as it provides better support for generics-based events.
 	 * @param event the event to multicast
+	 *
+	 * 将给定的应用程序事件多播到适当的侦听器。
 	 */
 	void multicastEvent(ApplicationEvent event);
 
 	/**
 	 * Multicast the given application event to appropriate listeners.
+	 * 将给定的应用程序事件多播到适当的侦听器。
+	 *
 	 * <p>If the {@code eventType} is {@code null}, a default type is built
 	 * based on the {@code event} instance.
 	 * @param event the event to multicast

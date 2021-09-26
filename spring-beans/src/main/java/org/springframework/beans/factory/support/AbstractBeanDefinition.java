@@ -101,6 +101,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates no dependency check at all.
+	 *
+	 * 常量，表示根本不进行依赖项检查。
 	 * @see #setDependencyCheck
 	 */
 	public static final int DEPENDENCY_CHECK_NONE = 0;
@@ -1016,6 +1018,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Return whether this bean definition is 'synthetic', that is,
 	 * not defined by the application itself.
+	 *
+	 *返回该bean定义是否为“合成的”，即:不是由应用本身定义的。
+	 *
 	 */
 	public boolean isSynthetic() {
 		return this.synthetic;
@@ -1139,6 +1144,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * Validate and prepare the given method override.
 	 * Checks for existence of a method with the specified name,
 	 * marking it as not overloaded if none found.
+	 *
+	 * 验证并准备给定的覆盖方法。检查是否存在指定名称的方法，如果没有找到，则标记为未重载。
+	 *
 	 * @param mo the MethodOverride object to validate
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
